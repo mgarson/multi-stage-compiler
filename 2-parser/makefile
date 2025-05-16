@@ -1,0 +1,38 @@
+CC = g++
+CFLAGS = -Wall -g
+
+# Object files
+OBJS = main.o scanner.o parser.o token.o testTree.o 
+
+# Target executable
+TARGET = P2
+
+# Build the final executable
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS)
+
+# Compile main.o
+main.o: main.cpp parser.h scanner.h token.h node.h testTree.h
+	$(CC) $(CFLAGS) -c main.cpp
+
+# Compile scanner.o
+scanner.o: scanner.cpp scanner.h token.h
+	$(CC) $(CFLAGS) -c scanner.cpp
+
+# Compile parser.o
+parser.o: parser.cpp parser.h scanner.h token.h node.h
+	$(CC) $(CFLAGS) -c parser.cpp
+
+# Compile token.o
+token.o: token.cpp token.h
+	$(CC) $(CFLAGS) -c token.cpp
+
+# Compile testTree.o
+testTree.o: testTree.cpp testTree.h node.h
+
+# Clean up
+clean:
+	/bin/rm -f *.o $(TARGET)
+
